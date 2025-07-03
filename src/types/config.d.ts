@@ -1,7 +1,7 @@
 declare global {
     namespace Graphs {
         interface Config {
-            value: string;
+            data: number[];
 
             scriptNames: Graphs.ScriptNames;
             

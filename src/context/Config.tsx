@@ -3,7 +3,7 @@ import { createContext, useContext, useEffect, useState } from 'react';
 import { loadCallbacks } from '@utils/performScript';
 
 const defaultConfig: Partial<Graphs.Config> = {
-    value: 'example',
+    data: []
 };
 
 // Parses the JSON from FileMaker into a readable config
