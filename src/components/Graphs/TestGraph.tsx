@@ -1,8 +1,7 @@
 import { useConfigState } from "@context/Config";
 import performScript from "@utils/performScript";
 
-// TODO: Replace example and rename file
-const Example2: FC = () => {
+const TestGraph: FC = () => {
     const [config, setConfig] = useConfigState();
 
     if (!config) return null;
@@ -19,4 +18,4 @@ const Example2: FC = () => {
     </div>
 }
 
-export default Example2;
+export default TestGraph;

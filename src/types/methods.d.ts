@@ -5,9 +5,8 @@ declare global {
         /** Initialize the component */
         init(config: string): void;
 
-        // TODO: Rename Example to your namespace
         /** Set a specific value in the config */
-        setConfigValue<K extends string & keyof Example.Config>(k: K, prop: Example.Config[K], type?: number): void;
+        setConfigValue<K extends string & keyof Graphs.Config>(k: K, prop: Graphs.Config[K], type?: number): void;
     }
 }
 

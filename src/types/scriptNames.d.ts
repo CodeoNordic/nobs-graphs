@@ -1,7 +1,6 @@
 declare global {
-    namespace Example {
+    namespace Graphs {
         interface ScriptNames {
-            // TODO: Define script names here, and rename namespace
             exampleScript: string;
 
             /** Only used if the script result shall be returned to JS */

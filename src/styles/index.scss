@@ -1,14 +1,13 @@
 :root {
-    // TODO: Change variables to your liking
-    --example-font: Tahoma, Geneva, Verdana, sans-serif;
+    --graphs-font: Tahoma, Geneva, Verdana, sans-serif;
 
     // Colors
-    --example-text: #000000;
-    --example-background: #FFFFFF;
-    --example-background-gray: #D9D9D9;
+    --graphs-text: #000000;
+    --graphs-background: #FFFFFF;
+    --graphs-background-gray: #D9D9D9;
 
-    --example-blue: #009CC6;
-    --example-dark-blue: #007494;
+    --graphs-blue: #009CC6;
+    --graphs-dark-blue: #007494;
 
     --button-hover: rgba(0, 0, 0, .2);
     --button-active: rgba(0, 0, 0, .3);
@@ -18,7 +17,7 @@ body {
     margin: 0;
     padding: 0;
 
-    font-family: var(--example-font);
+    font-family: var(--graphs-font);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 
