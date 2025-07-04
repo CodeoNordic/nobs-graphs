@@ -38,7 +38,11 @@ const Axis = ({
     ])
 
     return (
-        <svg>
+        <svg
+            style={{
+                overflow: "visible",
+            }}
+        >
             <path
                 d={[
                     "M", range[0], 6,
