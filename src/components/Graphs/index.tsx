@@ -1,8 +1,9 @@
+import PieChart from './PieChart';
 import TestGraph from './TestGraph';
 
 const Graphs: FC = () => {
     return <div>
-        <TestGraph />
+        <PieChart />
     </div>
 }
 

@@ -76,6 +76,7 @@ const Axis = ({
         </svg>
     )
 }
+
 const TestGraph: FC = () => {
     const [config, setConfig] = useConfigState();
     
