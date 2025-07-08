@@ -1,10 +1,11 @@
 import BarChart from './BarChart';
 import PieChart from './PieChart';
+import ScatterPlot from './ScatterPlot';
 import TestGraph from './TestGraph';
 
 const Graphs: FC = () => {
     return <div>
-        <BarChart />
+        <ScatterPlot />
     </div>
 }
 

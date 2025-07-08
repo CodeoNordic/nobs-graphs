@@ -1,4 +1,4 @@
-import { ScaleBand } from "d3";
+import { ScaleBand, ScaleLinear } from "d3";
 
 export const AxisLeft = ({ yScale }: { yScale: ScaleBand<string> }) => (
     <g className="axis axis--y">
@@ -15,6 +15,29 @@ export const AxisLeft = ({ yScale }: { yScale: ScaleBand<string> }) => (
             >
                 {tick}
             </text>
+        ))}
+    </g>
+);
+
+export const AxisLeftLineTicks = ({ yScale, innerWidth }: { yScale: ScaleLinear<number, number, never>; innerWidth: number }) => (
+    <g className="axis axis--x">
+        {yScale.ticks().map((tick, i) => (
+            <g
+                key={i}
+                transform={`translate(0, ${yScale(tick)})`}
+            >
+                <line x2={innerWidth} stroke="lightgray" />
+                <text
+                    x={-5}
+                    dy=".32em"
+                    style={{ 
+                        textAnchor: 'end', 
+                        fill: '#635f5d'
+                    }}
+                >
+                    {tick}
+                </text>
+            </g>
         ))}
     </g>
 );
