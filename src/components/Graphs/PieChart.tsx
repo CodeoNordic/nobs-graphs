@@ -67,15 +67,16 @@ const PieChart: FC = ({ data, width = 300, height = 300, innerRadius = 0, outerR
                     return t => arcGen(i(t));
                 });
 
-        // g.selectAll('text')
-        //     .data(arcs)
-        //     .enter()
-        //     .append('text')
-        //         .attr('transform', d => `translate(${arcGen.centroid(d)})`)
-        //         .attr('text-anchor', 'middle')
-        //         .attr('alignment-baseline', 'middle')
-        //         .style('font-size', '12px')
-        //         .text(d => d.data.label);
+        g.selectAll('text')
+            .data(arcs)
+            .enter()
+            .append('text')
+                .attr('transform', d => `translate(${arcGen.centroid(d)})`)
+                .attr('text-anchor', 'middle')
+                .attr('alignment-baseline', 'middle')
+                .style('font-size', '12px')
+                .text(d => d.data.label);
+
 
     }, [data, width, height, innerRadius, outerRadius]);
 
