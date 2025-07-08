@@ -11,7 +11,10 @@ export const AxisBottom = ({ xScale, innerHeight }: { xScale: ScaleLinear<number
                 <text
                     y={innerHeight + 3}
                     dy=".71em"
-                    style={{ textAnchor: 'middle' }}
+                    style={{ 
+                        textAnchor: 'middle', 
+                        fill: '#635f5d'
+                    }}
                 >
                     {tick}
                 </text>

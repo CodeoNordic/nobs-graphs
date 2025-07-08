@@ -8,7 +8,10 @@ export const AxisLeft = ({ yScale }: { yScale: ScaleBand<string> }) => (
                 key={i}
                 dy=".32em"
                 y={(yScale(tick) || 0) + yScale.bandwidth() / 2}
-                style={{ textAnchor: 'end' }}
+                style={{ 
+                    textAnchor: 'end',
+                    fill: '#635f5d'
+                }}
             >
                 {tick}
             </text>

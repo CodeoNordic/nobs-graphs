@@ -1,7 +1,7 @@
 import { AxisBottom } from "@components/Blocks/AxisBottom";
 import { AxisLeft } from "@components/Blocks/AxisLeft";
 import { useConfigState } from "@context/Config";
-import { ScaleBand, scaleBand, ScaleLinear, scaleLinear } from "d3";
+import { scaleBand, scaleLinear } from "d3";
 import { FC } from "react";
 
 interface BarChartProps {
@@ -55,7 +55,10 @@ const BarChart: FC = ({ data, width = 500, height = 300 }: BarChartProps) => {
                         width={xScale(d.value)}
                         height={yScale.bandwidth()}
                         fill="steelblue"
-                    />
+                    >
+                        {/* TODO: change to custom tooltip */}
+                        <title>{`${d.value}`}</title>
+                    </rect>
                 )}
             </g>
         </svg>
