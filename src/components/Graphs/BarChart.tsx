@@ -1,5 +1,7 @@
+import { AxisBottom } from "@components/Blocks/AxisBottom";
+import { AxisLeft } from "@components/Blocks/AxisLeft";
 import { useConfigState } from "@context/Config";
-import { scaleBand, scaleLinear } from "d3";
+import { ScaleBand, scaleBand, ScaleLinear, scaleLinear } from "d3";
 import { FC } from "react";
 
 interface BarChartProps {
@@ -8,13 +10,13 @@ interface BarChartProps {
     height?: number;
 }
 
-const BarChart: FC = ({ data, width = 300, height = 300 }: BarChartProps) => {
+const BarChart: FC = ({ data, width = 500, height = 300 }: BarChartProps) => {
     const [config, setConfig] = useConfigState();
     const margin = {
         top: 20,
         right: 20,
         bottom: 20,
-        left: 20
+        left: 50
     }
     
     if (!config) return null;
@@ -29,49 +31,32 @@ const BarChart: FC = ({ data, width = 300, height = 300 }: BarChartProps) => {
         ];
     }
 
+    const innerWidth = width - margin.left - margin.right;
+    const innerHeight = height - margin.top - margin.bottom;
+
     const yScale = scaleBand()
         .domain(data.map(d => d.label))
-        .range([0, height])
-        .padding(0.1);
+        .range([0, innerHeight])
+        .padding(0.2);
 
     const xScale = scaleLinear()
         .domain([0, Math.max(...data.map(d => d.value))])
-        .range([0, width]);
+        .range([0, innerWidth]);
 
     return (
         <svg width={width} height={height}>
             <g transform={`translate(${margin.left}, ${margin.top})`}>
-                {xScale.ticks().map((tick, i) => (
-                    <g
+                <AxisBottom xScale={xScale} innerHeight={innerHeight} />
+                <AxisLeft yScale={yScale} />
+                {data.map((d, i) =>
+                    <rect
                         key={i}
-                        transform={`translate(${xScale(tick)}, 0)`}
-                    >
-                        <line
-                            x1={0}
-                            x2={xScale(tick)}
-                            y1={0}
-                            y2={height}
-                            stroke="lightgray"
-                        />
-                    </g>
-                ))}
-                {data.map((d, i) => {
-                    const x = 0;
-                    const y = yScale(d.label) || 0;
-                    const barHeight = yScale.bandwidth();
-                    const barWidth = xScale(d.value);
-
-                    return (
-                        <rect
-                            key={i}
-                            x={x}
-                            y={y}
-                            width={barWidth}
-                            height={barHeight}
-                            fill="steelblue"
-                        />
-                    );
-                })}
+                        y={yScale(d.label) || 0}
+                        width={xScale(d.value)}
+                        height={yScale.bandwidth()}
+                        fill="steelblue"
+                    />
+                )}
             </g>
         </svg>
     );
