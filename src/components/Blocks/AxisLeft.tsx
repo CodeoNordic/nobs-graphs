@@ -20,7 +20,7 @@ export const AxisLeft = ({ yScale }: { yScale: ScaleBand<string> }) => (
 );
 
 export const AxisLeftLineTicks = ({ yScale, innerWidth }: { yScale: ScaleLinear<number, number, never>; innerWidth: number }) => (
-    <g className="axis axis--x">
+    <g className="axis axis--y">
         {yScale.ticks().map((tick, i) => (
             <g
                 key={i}
