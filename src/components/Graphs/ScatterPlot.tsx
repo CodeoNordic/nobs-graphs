@@ -103,7 +103,7 @@ const ScatterPlot: FC = ({ data, width = 500, height = 300, xLabel, yLabel }: Sc
 
     const yScale = scaleLinear()
         .domain([Math.min(...data.map(d => d.y)), Math.max(...data.map(d => d.y))])
-        .range([0, innerHeight]);
+        .range([innerHeight, 0]);
 
     return (
         <svg width={width} height={height}>
