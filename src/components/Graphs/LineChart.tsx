@@ -1,7 +1,7 @@
 import { AxisBottom } from "@components/Blocks/AxisBottom";
 import { AxisLeft, AxisLeftLineTicks } from "@components/Blocks/AxisLeft";
 import { useConfigState } from "@context/Config";
-import { line, scaleBand, scaleLinear } from "d3";
+import { curveNatural, line, scaleBand, scaleLinear } from "d3";
 import { FC } from "react";
 
 interface LineChartProps {
@@ -91,11 +91,13 @@ const LineChart: FC = ({ data, width = 500, height = 300, xLabel, yLabel }: Line
     
     const xScale = scaleLinear()
         .domain([Math.min(...data.map(d => d.x)), Math.max(...data.map(d => d.x))])
-        .range([0, innerWidth]);
+        .range([0, innerWidth])
+        .nice();
 
     const yScale = scaleLinear()
         .domain([Math.min(...data.map(d => d.y)), Math.max(...data.map(d => d.y))])
-        .range([innerHeight, 0]);
+        .range([innerHeight, 0])
+        .nice();
 
     return (
         <svg width={width} height={height}>
@@ -120,9 +122,12 @@ const LineChart: FC = ({ data, width = 500, height = 300, xLabel, yLabel }: Line
                 <path
                     d={line<{ x: number; y: number }>()
                         .x(d => xScale(d.x) || 0)
-                        .y(d => yScale(d.y) || 0)(data) || ""}
+                        .y(d => yScale(d.y) || 0)
+                        .curve(curveNatural)(data) || ""}
                     fill="none"
                     stroke="steelblue"
+                    strokeLinejoin="round"
+                    strokeLinecap="round"
                     strokeWidth={2}
                 />
                 {/* {data.map((d, i) =>
