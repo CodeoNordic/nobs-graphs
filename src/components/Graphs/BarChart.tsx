@@ -41,7 +41,8 @@ const BarChart: FC = ({ data, width = 500, height = 300 }: BarChartProps) => {
 
     const xScale = scaleLinear()
         .domain([0, Math.max(...data.map(d => d.value))])
-        .range([0, innerWidth]);
+        .range([0, innerWidth])
+        .nice();
 
     return (
         <svg width={width} height={height}>
