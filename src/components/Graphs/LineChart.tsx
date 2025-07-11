@@ -2,7 +2,7 @@ import { AxisBottom } from "@components/Blocks/AxisBottom";
 import { AxisLeft, AxisLeftLineTicks } from "@components/Blocks/AxisLeft";
 import { useConfigState } from "@context/Config";
 import { curveNatural, line, scaleBand, scaleLinear } from "d3";
-import { FC } from "react";
+import { FC, useEffect, useRef } from "react";
 
 interface LineChartProps {
     data?: { x: number; y: number }[];
@@ -13,6 +13,8 @@ interface LineChartProps {
 }
 
 const LineChart: FC = ({ data, width = 500, height = 300, xLabel, yLabel }: LineChartProps) => {
+    const pathRef = useRef<SVGPathElement>(null);
+
     const [config, setConfig] = useConfigState();
     const margin = {
         top: 20,
@@ -86,6 +88,21 @@ const LineChart: FC = ({ data, width = 500, height = 300, xLabel, yLabel }: Line
     }
     // End test values
 
+    useEffect(() => {
+        const path = pathRef.current;
+        if (path) {
+            const length = path.getTotalLength();
+            
+            path.style.strokeDasharray = `${length} ${length}`;
+            path.style.strokeDashoffset = `${length}`;
+            
+            setTimeout(() => {
+                path.style.transition = 'stroke-dashoffset 1s ease-in-out';
+                path.style.strokeDashoffset = '0';
+            }, 100);
+        }
+    }, [data]);
+
     const innerWidth = width - margin.left - margin.right;
     const innerHeight = height - margin.top - margin.bottom;
     
@@ -120,6 +137,7 @@ const LineChart: FC = ({ data, width = 500, height = 300, xLabel, yLabel }: Line
                     {yLabel}
                 </text>
                 <path
+                    ref={pathRef}
                     d={line<{ x: number; y: number }>()
                         .x(d => xScale(d.x) || 0)
                         .y(d => yScale(d.y) || 0)
@@ -130,18 +148,6 @@ const LineChart: FC = ({ data, width = 500, height = 300, xLabel, yLabel }: Line
                     strokeLinecap="round"
                     strokeWidth={2}
                 />
-                {/* {data.map((d, i) =>
-                    <circle
-                        key={i}
-                        cx={xScale(d.x) || 0}
-                        cy={yScale(d.y) || 0}
-                        r={5}
-                        fill="steelblue"
-                    > */}
-                        {/* TODO: change to custom tooltip */}
-                        {/* <title>{`${d.x}, ${d.y}`}</title>
-                    </circle>
-                )} */}
             </g>
         </svg>
     );

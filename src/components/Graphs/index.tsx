@@ -6,7 +6,7 @@ import TestGraph from './TestGraph';
 
 const Graphs: FC = () => {
     return <div>
-        <LineChart />
+        <ScatterPlot />
     </div>
 }
 

@@ -2,7 +2,7 @@ import { AxisBottom } from "@components/Blocks/AxisBottom";
 import { AxisLeft, AxisLeftLineTicks } from "@components/Blocks/AxisLeft";
 import { useConfigState } from "@context/Config";
 import { scaleBand, scaleLinear } from "d3";
-import { FC } from "react";
+import { FC, useEffect, useRef } from "react";
 
 interface ScatterPlotProps {
     data?: { x: number; y: number }[];
@@ -13,6 +13,7 @@ interface ScatterPlotProps {
 }
 
 const ScatterPlot: FC = ({ data, width = 500, height = 300, xLabel, yLabel }: ScatterPlotProps) => {
+    const circlesRef = useRef<SVGCircleElement[]>([]);
     const [config, setConfig] = useConfigState();
     const margin = {
         top: 20,
@@ -94,6 +95,24 @@ const ScatterPlot: FC = ({ data, width = 500, height = 300, xLabel, yLabel }: Sc
     }
     // End test values
 
+    useEffect(() => {
+        circlesRef.current.forEach((circle, i) => {
+            if (circle) {
+                const finalX = xScale(data[i].x);
+                const finalY = yScale(data[i].y);
+                
+                circle.style.opacity = '0';
+                
+                setTimeout(() => {
+                    circle.style.transition = `opacity ${0.5 + i * 0.01}s ease-out`;
+                    circle.style.opacity = '1';
+                    circle.setAttribute('cx', `${finalX}`);
+                    circle.setAttribute('cy', `${finalY}`);
+                }, 100 + i * 10);
+            }
+        });
+    }, [data]);
+
     const innerWidth = width - margin.left - margin.right;
     const innerHeight = height - margin.top - margin.bottom;
     
@@ -129,6 +148,7 @@ const ScatterPlot: FC = ({ data, width = 500, height = 300, xLabel, yLabel }: Sc
                 </text>
                 {data.map((d, i) =>
                     <circle
+                        ref={el => circlesRef.current[i] = el!}
                         key={i}
                         cx={xScale(d.x) || 0}
                         cy={yScale(d.y) || 0}
